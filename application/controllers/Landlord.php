@@ -15,6 +15,50 @@ class Landlord extends CI_Controller
 		$this->lang->load('vasha', $this->db->get_where('setting', array('name' => 'language'))->row()->content);
 	}
 
+
+	function room_invoices($param1 = '', $param2 = '', $param3= '')
+	{
+		if (!$this->session->userdata('user_type'))
+			redirect(base_url() . 'login', 'refresh');
+
+		if (in_array($this->db->get_where('module', array('module_name' => 'settings'))->row()->module_id, $this->session->userdata('permissions'))) {
+			if ($param1 == 'add') $this->model->add_room_invoice();
+			elseif ($param1 == 'cancel') $this->model->cancel_invoice($param2,$param3);
+			elseif ($param1 == 'remove') $this->model->remove_service($param2);
+
+			$page_data['navbar_status']	=	'aside-collapsed';
+			$page_data['page_title']	=	'Room Invoice';
+			$page_data['page_name'] 	=	'room_invoice';
+			$this->load->view('index', $page_data);
+		} else {
+			$page_data['page_title']	=	'Permission Denied';
+			$page_data['page_name'] 	= 	'permission_denied';
+			$this->load->view('index', $page_data);
+		}
+	}
+
+	function services_invoices($param1 = '', $param2 = '', $param3= '')
+	{
+		if (!$this->session->userdata('user_type'))
+			redirect(base_url() . 'login', 'refresh');
+
+		if (in_array($this->db->get_where('module', array('module_name' => 'settings'))->row()->module_id, $this->session->userdata('permissions'))) {
+			if ($param1 == 'add') $this->model->manage_service_invoice();
+			elseif ($param1 == 'cancel') $this->model->cancel_invoice($param2);
+			elseif ($param1 == 'remove') $this->model->remove_service($param2);
+
+			$page_data['navbar_status']	=	'aside-collapsed';
+			$page_data['page_title']	=	'Services Invoice';
+			$page_data['page_name'] 	=	'service_invoice';
+			$this->load->view('index', $page_data);
+		} else {
+			$page_data['page_title']	=	'Permission Denied';
+			$page_data['page_name'] 	= 	'permission_denied';
+			$this->load->view('index', $page_data);
+		}
+	}
+
+
 	public function index()
 	{
 		if (!$this->session->userdata('user_type'))
@@ -815,7 +859,7 @@ class Landlord extends CI_Controller
 
 			$page_data['navbar_status']	=	'aside-collapsed';
 			$page_data['page_title']	=	'Service Settings';
-			$page_data['page_name'] 	=	'service_settings';
+			$page_data['page_name'] 	=	'services';
 			$this->load->view('index', $page_data);
 		} else {
 			$page_data['page_title']	=	'Permission Denied';
@@ -823,6 +867,7 @@ class Landlord extends CI_Controller
 			$this->load->view('index', $page_data);
 		}
 	}
+	
 
 	function id_type_settings($param1 = '', $param2 = '')
 	{

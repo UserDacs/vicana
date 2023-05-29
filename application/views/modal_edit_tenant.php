@@ -4,7 +4,7 @@ $tenant_info = $this->db->get_where('tenant', array('tenant_id' => $param2))->re
 foreach ($tenant_info as $tenant) :
 ?>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="form-group">
 			<label><?php echo $this->lang->line('name'); ?> *</label>
 			<input value="<?php echo html_escape($tenant['name']); ?>" type="text" name="name" placeholder="<?php echo $this->lang->line('enter_name'); ?>" class="form-control" data-parsley-required="true">
@@ -13,7 +13,7 @@ foreach ($tenant_info as $tenant) :
 			<label><?php echo $this->lang->line('mobile'); ?> *</label>
 			<input value="<?php echo html_escape($tenant['mobile_number']); ?>" type="text" name="mobile_number" placeholder="<?php echo $this->lang->line('enter_mobile_number'); ?>" class="form-control" data-parsley-required="true">
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('id_type'); ?></label>
 			<div>
 				<select style="width: 100%" class="form-control default-select2" name="id_type_id">
@@ -27,18 +27,18 @@ foreach ($tenant_info as $tenant) :
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('id_number'); ?></label>
 			<input value="<?php echo html_escape($tenant['id_number']); ?>" name="id_number" type="text" placeholder="<?php echo $this->lang->line('enter_id_number'); ?>" class="form-control">
 		</div>
-		<div class="form-group">
+		<div class="form-group" >
 			<label><?php echo $this->lang->line('home_address'); ?></label>
 			<input value="<?php echo html_escape(explode('<br>', $tenant['home_address'])[0]); ?>" name="home_address_line_1" type="text" placeholder="<?php echo $this->lang->line('enter_home_address_line_1'); ?>" class="form-control">
 		</div>
-		<div class="form-group">
-			<input value="<?php echo html_escape(explode('<br>', $tenant['home_address'])[1]); ?>" name="home_address_line_2" type="text" placeholder="<?php echo $this->lang->line('enter_home_address_line_2'); ?>" class="form-control">
+		<div class="form-group" style="display:none">
+			<input value="" name="home_address_line_2" type="text" placeholder="<?php echo $this->lang->line('enter_home_address_line_2'); ?>" class="form-control">
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('profession'); ?></label>
 			<div>
 				<select style="width: 100%" class="form-control default-select2" name="profession_id">
@@ -52,18 +52,18 @@ foreach ($tenant_info as $tenant) :
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('work_address'); ?></label>
-			<input value="<?php echo html_escape(explode('<br>', $tenant['work_address'])[0]); ?>" name="work_address_line_1" type="text" placeholder="<?php echo $this->lang->line('enter_work_address_line_1'); ?>" class="form-control">
+			<input value="" name="work_address_line_1" type="text" placeholder="<?php echo $this->lang->line('enter_work_address_line_1'); ?>" class="form-control">
 		</div>
-		<div class="form-group">
-			<input value="<?php echo html_escape(explode('<br>', $tenant['work_address'])[1]); ?>" name="work_address_line_2" type="text" placeholder="<?php echo $this->lang->line('enter_work_address_line_2'); ?>" class="form-control">
+		<div class="form-group" style="display:none">
+			<input value="" name="work_address_line_2" type="text" placeholder="<?php echo $this->lang->line('enter_work_address_line_2'); ?>" class="form-control">
 		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-12">
 		
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('lease_period'); ?></label>
 			<div class="input-group input-daterange">
 				<input type="text" class="form-control" value="<?php echo $tenant['lease_start'] ? date('m/d/Y', $tenant['lease_start']) : ''; ?>" name="lease_start" placeholder="<?php echo $this->lang->line('date_start'); ?>" />
@@ -71,7 +71,7 @@ foreach ($tenant_info as $tenant) :
 				<input type="text" class="form-control" value="<?php echo $tenant['lease_end'] ? date('m/d/Y', $tenant['lease_end']) : ''; ?>" name="lease_end" placeholder="<?php echo $this->lang->line('date_end'); ?>" />
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label><?php echo $this->lang->line('room'); ?></label>
 			<div>
 				<select style="width: 100%" class="form-control default-select2" name="room_id">
@@ -88,9 +88,7 @@ foreach ($tenant_info as $tenant) :
 				</select>
 			</div>
 		</div>
-		<div class="note note-yellow m-b-15">
-			<span><?php echo $this->lang->line('to_assign_room'); ?>.</span>
-		</div>
+	
 		<div class="form-group">
 			<label><?php echo $this->lang->line('status'); ?> *</label>
 			<div>
@@ -101,9 +99,7 @@ foreach ($tenant_info as $tenant) :
 				</select>
 			</div>
 		</div>
-		<div class="note note-yellow m-b-15">
-			<span><?php echo $this->lang->line('to_activate_tenant'); ?>.</span>
-		</div>
+		
 		<div class="form-group">
 			<label><?php echo $this->lang->line('emergency_person'); ?></label>
 			<input value="<?php echo html_escape($tenant['emergency_person']); ?>" type="text" name="emergency_person" placeholder="<?php echo $this->lang->line('enter_emergency_person_name'); ?>" class="form-control">

@@ -32,6 +32,217 @@ class Model extends CI_Model
 		redirect(base_url() . 'rooms', 'refresh');
 	}
 
+	
+
+	function cancel_invoice($idx = '',$room_id = '')
+	{
+
+			$data['status']					=	2;
+
+			$datar['status']				=	0;
+
+			$this->db->where('room_id', $room_id);
+			$this->db->update('room', $datar);
+			$this->db->where('idx', $idx);
+			$this->db->update('room_invoice', $data);
+
+			$this->session->set_flashdata('success', "Success cancel invoice!");
+	
+			redirect(base_url() . 'room_invoices', 'refresh');
+
+
+	}
+
+	function add_room_invoice()
+	{
+		if ($this->input->post('idx') == 0) {
+			if ($this->db->get_where('room_invoice', array('status' => 1, 'tenant_id' => $this->input->post('tenant_id'), 'room_id' => $this->input->post('room_id')))->num_rows() > 0) {
+			
+				$this->session->set_flashdata('warning', 'Already Taken!');
+	
+				redirect(base_url() . 'room_invoices', 'refresh');
+	
+			}else{
+				$room_day		=	$this->db->get_where('room', array('room_id' => $this->input->post('room_id')))->row()->daily_rent;
+				$room_month		=	$this->db->get_where('room', array('room_id' => $this->input->post('room_id')))->row()->monthly_rent;
+				$numbers = '';
+				for($i = 0; $i < 9; $i++){
+					$numbers .= $i;
+				}
+	
+				$invoice = substr(str_shuffle($numbers), 0, 9);
+	
+				$startTimeStamp = strtotime($this->input->post('lease_start'));
+				$endTimeStamp = strtotime($this->input->post('lease_end'));
+				
+				$timeDiff = abs($endTimeStamp - $startTimeStamp);
+				
+				$numberDays = $timeDiff/86400;  // 86400 seconds in one day
+				
+				$numberDays = intval($numberDays);
+				$t_amout = "";
+				if($numberDays >= 30){
+					$t_amout = $room_month;
+				}else{
+					$total_amount_in = $numberDays * $room_day ;
+					$t_amout = round($total_amount_in , 2);
+				}
+	
+				$data['invoice_number']			=	$invoice;
+				$data['room_id']				=	$this->input->post('room_id');
+				$data['tenant_id']				=	$this->input->post('tenant_id');
+				$data['lease_start']		    =	strtotime($this->input->post('lease_start'));
+				$data['lease_end']			    =	strtotime($this->input->post('lease_end'));
+				$data['created_on']				=	time();
+				$data['total_amount']			=	$t_amout;
+				$data['status']					=	$this->input->post('status');
+
+				$datar['status']					=	$this->input->post('status');
+				
+
+				$this->db->where('room_id', $this->input->post('room_id'));
+			    $this->db->update('room', $datar);
+		
+				$this->db->insert('room_invoice', $data);
+		
+				$this->session->set_flashdata('success', "Success add new invoice!");
+		
+				redirect(base_url() . 'room_invoices', 'refresh');
+			}
+		}else{
+
+			$idx = $this->input->post('idx');
+			$room_day		=	$this->db->get_where('room', array('room_id' => $this->input->post('room_id')))->row()->daily_rent;
+			$room_month		=	$this->db->get_where('room', array('room_id' => $this->input->post('room_id')))->row()->monthly_rent;
+			$numbers = '';
+			for($i = 0; $i < 9; $i++){
+				$numbers .= $i;
+			}
+
+			$invoice = substr(str_shuffle($numbers), 0, 9);
+
+			$startTimeStamp = strtotime($this->input->post('lease_start'));
+			$endTimeStamp = strtotime($this->input->post('lease_end'));
+			
+			$timeDiff = abs($endTimeStamp - $startTimeStamp);
+			
+			$numberDays = $timeDiff/86400;  // 86400 seconds in one day
+			
+			$numberDays = intval($numberDays);
+			$t_amout = "";
+			if($numberDays >= 30){
+				$t_amout = $room_month;
+			}else{
+				$total_amount_in = $numberDays * $room_day ;
+				$t_amout = round($total_amount_in , 2);
+			}
+
+			$data['invoice_number']			=	$invoice;
+			$data['room_id']				=	$this->input->post('room_id');
+			$data['tenant_id']				=	$this->input->post('tenant_id');
+			$data['lease_start']		    =	strtotime($this->input->post('lease_start'));
+			$data['lease_end']			    =	strtotime($this->input->post('lease_end'));
+			$data['total_amount']			=	$t_amout;
+			$data['status']					=	$this->input->post('status');
+
+			$datar['status']				=	$this->input->post('status');
+
+			$this->db->where('room_id', $this->input->post('room_id'));
+			$this->db->update('room', $datar);
+			$this->db->where('idx', $idx);
+			$this->db->update('room_invoice', $data);
+	
+			$this->session->set_flashdata('success', "Success update invoice!");
+	
+			redirect(base_url() . 'room_invoices', 'refresh');
+		}
+		
+		
+	}
+
+
+	function manage_service_invoice()
+	{
+		if ($this->input->post('idx') == 0) {
+			if ($this->db->get_where('services_invoice', array('tenant_id' => $this->input->post('tenant_id'), 'service_id' => $this->input->post('service_id'), 'lease_start' => strtotime($this->input->post('lease_start'))))->num_rows() > 0) {
+				$service_amount		=	$this->db->get_where('service', array('service_id' => $this->input->post('service_id')))->row()->cost;
+
+				$t_amout = $service_amount * $this->input->post('count_service');
+
+				$this->db->get_where('services_invoice', array('tenant_id' => $this->input->post('tenant_id'), 'service_id' => $this->input->post('service_id'), 'lease_start' => $this->input->post('lease_start')));
+				$this->db->set('count', '`count`+ '.$this->input->post('count_service'), FALSE);
+				$this->db->set('total_amount', '`total_amount`+ '.$t_amout , FALSE);
+			    $this->db->update('services_invoice');
+			
+				$this->session->set_flashdata('warning', 'Already Taken!');
+	
+				redirect(base_url() . 'services_invoices', 'refresh');
+	
+			}else{
+				
+				$service_amount		=	$this->db->get_where('service', array('service_id' => $this->input->post('service_id')))->row()->cost;
+				$numbers = '';
+				for($i = 0; $i < 9; $i++){
+					$numbers .= $i;
+				}
+	
+				$invoice = substr(str_shuffle($numbers), 0, 9);
+	
+				$t_amout = $service_amount * $this->input->post('count_service');
+				// SSELECT `idx`, `invoice_number`, `service_id`, `tenant_id`, `lease_start`, `created_on`, `count`, `total_amount`, `status` FROM `services_invoice` WHERE 1
+
+				$data['invoice_number']			=	$invoice;
+				$data['service_id']				=	$this->input->post('service_id');
+				$data['tenant_id']				=	$this->input->post('tenant_id');
+				$data['lease_start']		    =	strtotime($this->input->post('lease_start'));
+				// $data['lease_end']			    =	strtotime($this->input->post('lease_end'));
+				$data['created_on']				=	time();
+				$data['count']					=	$this->input->post('count_service');
+				$data['total_amount']			=	$t_amout;
+				$data['status']					=	$this->input->post('status');
+
+		
+				$this->db->insert('services_invoice', $data);
+		
+				$this->session->set_flashdata('success', "Success add new invoice!");
+		
+				redirect(base_url() . 'services_invoices', 'refresh');
+			}
+		}else{
+
+			$idx = $this->input->post('idx');
+			$service_amount		=	$this->db->get_where('service', array('service_id' => $this->input->post('service_id')))->row()->cost;
+				$numbers = '';
+				for($i = 0; $i < 9; $i++){
+					$numbers .= $i;
+				}
+	
+				$invoice = substr(str_shuffle($numbers), 0, 9);
+	
+				$t_amout = $service_amount * $this->input->post('count_service');
+				// SSELECT `idx`, `invoice_number`, `service_id`, `tenant_id`, `lease_start`, `created_on`, `count`, `total_amount`, `status` FROM `services_invoice` WHERE 1
+
+				$data['invoice_number']			=	$invoice;
+				$data['service_id']				=	$this->input->post('service_id');
+				$data['tenant_id']				=	$this->input->post('tenant_id');
+				$data['lease_start']		    =	strtotime($this->input->post('lease_start'));
+				// $data['lease_end']			    =	strtotime($this->input->post('lease_end'));
+				$data['created_on']				=	time();
+				$data['count']					=	$this->input->post('count_service');
+				$data['total_amount']			=	$t_amout;
+				$data['status']					=	$this->input->post('status');
+
+			$this->db->where('idx', $idx);
+			$this->db->update('services_invoice', $data);
+	
+			$this->session->set_flashdata('success', "Success update invoice!");
+	
+			redirect(base_url() . 'services_invoices', 'refresh');
+		}
+		
+		
+	}
+
 	function update_room($room_id = '')
 	{
 		$existing_room_number 			=	$this->db->get_where('room', array('room_id' => $room_id))->row()->room_number;
@@ -126,107 +337,51 @@ class Model extends CI_Model
 
 	function add_tenant()
 	{
-		$ext 							= 	pathinfo($_FILES['image_link']['name'], PATHINFO_EXTENSION);
-		$ext_id_front 					= 	pathinfo($_FILES['id_front_image_link']['name'], PATHINFO_EXTENSION);
-		$ext_id_back 					= 	pathinfo($_FILES['id_back_image_link']['name'], PATHINFO_EXTENSION);
-		$ext_lease 						= 	pathinfo($_FILES['lease_link']['name'], PATHINFO_EXTENSION);
+		
+		
+		$data['name']				=	$this->input->post('name');
+		$data['mobile_number']		=	$this->input->post('mobile_number');
+		$data['email']				=	$this->input->post('email');
+		$data['id_type_id']			=	$this->input->post('id_type_id');
+		$data['id_number']			=	$this->input->post('id_number');
+		$data['home_address']		=	$this->input->post('home_address_line_1') . '<br>' . $this->input->post('home_address_line_2');
+		$data['emergency_person']	=	$this->input->post('emergency_person');
+		$data['emergency_contact']	=	$this->input->post('emergency_contact');
+		$data['room_id']			=	$this->input->post('room_id') ? $this->input->post('room_id') : 0;
 
-		$users = $this->db->get('user')->result_array();
-		foreach ($users as $user) {
-			if ($user['email'] == $this->input->post('email')) {
-				$this->session->set_flashdata('warning', $this->lang->line('tenant_email_already_registered'));
-
-				redirect(base_url() . 'add_tenant', 'refresh');
-			}
+		if ($this->input->post('lease_start') && $this->input->post('lease_end')) {
+			$data['lease_start']		=	strtotime($this->input->post('lease_start'));
+			$data['lease_end']			=	strtotime($this->input->post('lease_end'));
 		}
 
-		if ($this->input->post('status') && !($this->input->post('room_id'))) {
-			$this->session->set_flashdata('warning', $this->lang->line('tenant_activate_assign_room'));
+		$data['profession_id']		=	$this->input->post('profession_id');
+		$data['work_address']		=	$this->input->post('work_address_line_1');
+		$data['status']				=	$this->input->post('status');
+		$data['extra_note']			=	$this->input->post('extra_note');
+		$data['created_on']			=	time();
+		$data['created_by']			=	$this->session->userdata('user_id');
+		$data['timestamp']			=	time();
+		$data['updated_by']			=	$this->session->userdata('user_id');
 
-			redirect(base_url() . 'add_tenant', 'refresh');
-		} elseif (!($this->input->post('status')) && $this->input->post('room_id')) {
-			$this->session->set_flashdata('warning', $this->lang->line('tenant_assign_room_must_activate'));
+		$this->db->insert('tenant', $data);
 
-			redirect(base_url() . 'add_tenant', 'refresh');
-		} else {
-			if ($ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'JPEG' || $ext == 'JPG' || $ext == 'PNG') {
-				$data['image_link'] 			= 	strtolower(explode(" ", $this->input->post('name'))[0]) . '_' . time() . '.' . $ext;
+		
+		// if ($this->input->post('room_id')) {
+		// 	$data3['status']		=	1;
+		// 	$data3['timestamp']		=	time();
+		// 	$data3['updated_by']	=	$this->session->userdata('user_id');
 
-				move_uploaded_file($_FILES['image_link']['tmp_name'], 'uploads/tenants/' . $data['image_link']);
-			}
+		// 	$this->db->where('room_id', $data['room_id']);
+		// 	$this->db->update('room', $data3);
+		// }
 
-			if ($ext_id_front == 'jpeg' || $ext_id_front == 'jpg' || $ext_id_front == 'png' || $ext_id_front == 'JPEG' || $ext_id_front == 'JPG' || $ext_id_front == 'PNG') {
-				$data['id_front_image_link'] 	= 	strtolower(explode(" ", $this->input->post('name'))[0]) . '_id_front_' . time() . '.' . $ext_id_front;
+		$this->session->set_flashdata('success', $this->lang->line('tenant_added_successfully'));
 
-				move_uploaded_file($_FILES['id_front_image_link']['tmp_name'], 'uploads/tenants/' . $data['id_front_image_link']);
-			}
+		redirect(base_url() . 'tenants', 'refresh');
 
-			if ($ext_id_back == 'jpeg' || $ext_id_back == 'jpg' || $ext_id_back == 'png' || $ext_id_back == 'JPEG' || $ext_id_back == 'JPG' || $ext_id_back == 'PNG') {
-				$data['id_back_image_link'] 	= 	strtolower(explode(" ", $this->input->post('name'))[0]) . '_id_back_' . time() . '.' . $ext_id_back;
+		
 
-				move_uploaded_file($_FILES['id_back_image_link']['tmp_name'], 'uploads/tenants/' . $data['id_back_image_link']);
-			}
-
-			if ($ext_lease == 'pdf' || $ext_lease == 'PDF') {
-				$data['lease_image'] 			= 	strtolower(explode(" ", $this->input->post('name'))[0]) . '_lease_' . time() . '.' . $ext_lease;
-
-				move_uploaded_file($_FILES['id_back_image_link']['tmp_name'], 'uploads/tenants/' . $data['id_back_image_link']);
-			}
-
-			$data['name']				=	$this->input->post('name');
-			$data['mobile_number']		=	$this->input->post('mobile_number');
-			$data['email']				=	$this->input->post('email');
-			$data['id_type_id']			=	$this->input->post('id_type_id');
-			$data['id_number']			=	$this->input->post('id_number');
-			$data['home_address']		=	$this->input->post('home_address_line_1') . '<br>' . $this->input->post('home_address_line_2');
-			$data['emergency_person']	=	$this->input->post('emergency_person');
-			$data['emergency_contact']	=	$this->input->post('emergency_contact');
-			$data['room_id']			=	$this->input->post('room_id') ? $this->input->post('room_id') : 0;
-
-			if ($this->input->post('lease_start') && $this->input->post('lease_end')) {
-				$data['lease_start']		=	strtotime($this->input->post('lease_start'));
-				$data['lease_end']			=	strtotime($this->input->post('lease_end'));
-			}
-
-			$data['profession_id']		=	$this->input->post('profession_id');
-			$data['work_address']		=	$this->input->post('work_address_line_1') . '<br>' . $this->input->post('work_address_line_2');
-			$data['status']				=	$this->input->post('status');
-			$data['extra_note']			=	$this->input->post('extra_note');
-			$data['created_on']			=	time();
-			$data['created_by']			=	$this->session->userdata('user_id');
-			$data['timestamp']			=	time();
-			$data['updated_by']			=	$this->session->userdata('user_id');
-
-			$this->db->insert('tenant', $data);
-
-			if ($this->input->post('email')) {
-				$data2['person_id']		=	$this->db->insert_id();
-				$data2['email']			=	$this->input->post('email');
-				$data2['password']		=	$this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
-				$data2['user_type']		=	3;
-				$data2['status']		=	$this->input->post('status');
-				$data2['created_on']	= 	time();
-				$data2['created_by']	=	$this->session->userdata('user_id');
-				$data2['timestamp']		=	time();
-				$data2['updated_by']	=	$this->session->userdata('user_id');
-				$data2['permissions']	=	'10,13,14';
-
-				$this->db->insert('user', $data2);
-			}
-
-			if ($this->input->post('room_id')) {
-				$data3['status']		=	1;
-				$data3['timestamp']		=	time();
-				$data3['updated_by']	=	$this->session->userdata('user_id');
-
-				$this->db->where('room_id', $data['room_id']);
-				$this->db->update('room', $data3);
-			}
-
-			$this->session->set_flashdata('success', $this->lang->line('tenant_added_successfully'));
-
-			redirect(base_url() . 'tenants', 'refresh');
-		}
+		
 	}
 
 	function change_tenant_image($tenant_id = '')
@@ -341,57 +496,18 @@ class Model extends CI_Model
 
 	function update_tenant($tenant_id = '')
 	{
-		$existing_room_id 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->room_id;
-
-		if ($this->input->post('status') && !($this->input->post('room_id'))) {
-			$this->session->set_flashdata('warning', $this->lang->line('tenant_activate_assign_room'));
-
-			redirect(base_url() . 'tenants', 'refresh');
-		} elseif (!($this->input->post('status')) && $this->input->post('room_id')) {
-			$this->session->set_flashdata('warning', $this->lang->line('tenant_assign_room_must_activate'));
-
-			redirect(base_url() . 'tenants', 'refresh');
-		} elseif (!($this->input->post('status')) && !($this->input->post('room_id'))) {
-			$data4['status']			=	0;
-			$data4['timestamp']			=	time();
-			$data4['updated_by']		=	$this->session->userdata('user_id');
-
-			$this->db->where('room_id', $existing_room_id);
-			$this->db->update('room', $data4);
-
-			$data['room_id ']			= 	0;
-		} else {
-			if ($existing_room_id != $this->input->post('room_id')) {
-				if ($existing_room_id > 0) {
-					$data2['status']		=	0;
-					$data2['timestamp']		=	time();
-					$data2['updated_by']	=	$this->session->userdata('user_id');
-
-					$this->db->where('room_id', $existing_room_id);
-					$this->db->update('room', $data2);
-				}
-
-				$data3['status']		=	1;
-				$data3['timestamp']		=	time();
-				$data3['updated_by']	=	$this->session->userdata('user_id');
-
-				$this->db->where('room_id', $this->input->post('room_id'));
-				$this->db->update('room', $data3);
-
-				$data['room_id ']		= 	$this->input->post('room_id');
-			}
-		}
+		
 
 		$data['name']					=	$this->input->post('name');
 		$data['mobile_number']			=	$this->input->post('mobile_number');
 		$data['email']					=	$this->input->post('email');
 		$data['id_type_id']				=	$this->input->post('id_type_id');
 		$data['id_number']				=	$this->input->post('id_number');
-		$data['home_address']			=	$this->input->post('home_address_line_1') . '<br>' . $this->input->post('home_address_line_2');
+		$data['home_address']			=	$this->input->post('home_address_line_1');
 		$data['emergency_person']		=	$this->input->post('emergency_person');
 		$data['emergency_contact']		=	$this->input->post('emergency_contact');
 		$data['profession_id']			=	$this->input->post('profession_id');
-		$data['work_address']			=	$this->input->post('work_address_line_1') . '<br>' . $this->input->post('work_address_line_2');
+		$data['work_address']			=	$this->input->post('work_address_line_1');
 		$data['status']					=	$this->input->post('status');
 		$data['extra_note']				=	$this->input->post('extra_note');
 		$data['timestamp']				=	time();
@@ -404,33 +520,6 @@ class Model extends CI_Model
 
 		$this->db->where('tenant_id', $tenant_id);
 		$this->db->update('tenant', $data);
-
-		if ($this->input->post('email')) {
-			if ($this->db->get_where('user', array('user_type' => 3, 'person_id' => $tenant_id))->num_rows() > 0) {
-				$data2['email']					=	$this->input->post('email');
-				$data2['password']				=	$this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
-				$data2['status']				=	$this->input->post('status');
-				$data2['timestamp']				=	time();
-				$data2['updated_by']			=	$this->session->userdata('user_id');
-
-				$array = array('user_type' => 3, 'person_id' => $tenant_id);
-				$this->db->where($array);
-				$this->db->update('user', $data2);
-			} else {
-				$data2['person_id']			=	$tenant_id;
-				$data2['email']				=	$this->input->post('email');
-				$data2['password']			=	$this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
-				$data2['user_type']			=	3;
-				$data2['status']			=	$this->input->post('status');
-				$data2['created_on']		= 	time();
-				$data2['created_by']		=	$this->session->userdata('user_id');
-				$data2['timestamp']			=	time();
-				$data2['updated_by']		=	$this->session->userdata('user_id');
-				$data2['permissions']		=	'10,13,14';
-
-				$this->db->insert('user', $data2);
-			}
-		}
 
 		$this->session->set_flashdata('success', $this->lang->line('tenant_updated_successfully'));
 

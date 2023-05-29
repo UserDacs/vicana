@@ -50,6 +50,13 @@
 		document.getElementById('delete_link').setAttribute('href', delete_url);
 	}
 
+	function confirm_cancel_modal(delete_url) {
+		jQuery('#modal_cancel').modal('show', {
+			backdrop: 'static'
+		});
+		document.getElementById('cancel_link').setAttribute('href', delete_url);
+	}
+
 	function confirm_close_modal(close_url) {
 		jQuery('#modal_close').modal('show', {
 			backdrop: 'static'
@@ -101,6 +108,22 @@
 			<div class="modal-footer">
 				<a href="javascript:;" class="btn btn-danger" id="delete_link"><?php echo $this->lang->line('delete'); ?></a>
 				<a href="javascript:;" class="btn btn-info" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="modal_cancel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><?php echo $this->lang->line('modal_cancel_content'); ?></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<div class="modal-footer">
+				<a href="javascript:;" class="btn btn-danger" id="cancel_link">Yes</a>
+				<a href="javascript:;" class="btn btn-info" data-dismiss="modal">No</a>
 			</div>
 		</div>
 	</div>

@@ -65,7 +65,7 @@
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
                                     <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d M, Y', $room['timestamp']); ?></td>
+                                    <td><?php echo date('M d, Y', $room['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $room['updated_by']))->row()->user_type;

@@ -1,0 +1,1137 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 29, 2023 at 11:17 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `vicana`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `board_member`
+--
+
+CREATE TABLE `board_member` (
+  `board_member_id` int(11) NOT NULL,
+  `name` varchar(55) DEFAULT NULL,
+  `position` varchar(55) DEFAULT NULL,
+  `serial` int(11) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaint`
+--
+
+CREATE TABLE `complaint` (
+  `complaint_id` int(11) NOT NULL,
+  `subject` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `complaint_number` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `tenant_id` int(11) DEFAULT NULL,
+  `complaint_picture_1` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `complaint_picture_2` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `complaint_video` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaint_details`
+--
+
+CREATE TABLE `complaint_details` (
+  `complaint_details_id` int(11) NOT NULL,
+  `content` text CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `complaint_id` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currency`
+--
+
+CREATE TABLE `currency` (
+  `currency_id` int(11) NOT NULL,
+  `name` varchar(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `code` char(3) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `currency`
+--
+
+INSERT INTO `currency` (`currency_id`, `name`, `code`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'Andorran Peseta', 'ADP', 1519583748, 1, 1519583748, 1),
+(2, 'United Arab Emirates Dirham', 'AED', 1519583748, 1, 1519583748, 1),
+(3, 'Afghanistan Afghani', 'AFA', 1519583748, 1, 1519583748, 1),
+(4, 'Albanian Lek', 'ALL', 1519583748, 1, 1519583748, 1),
+(5, 'Netherlands Antillian Guilder', 'ANG', 1519583748, 1, 1519583748, 1),
+(6, 'Angolan Kwanza', 'AOK', 1519583748, 1, 1519583748, 1),
+(7, 'Argentine Peso', 'ARS', 1519583748, 1, 1519583748, 1),
+(9, 'Australian Dollar', 'AUD', 1519583748, 1, 1519583748, 1),
+(10, 'Aruban Florin', 'AWG', 1519583748, 1, 1519583748, 1),
+(11, 'Barbados Dollar', 'BBD', 1519583748, 1, 1519583748, 1),
+(12, 'Bangladeshi Taka', 'BDT', 1519583748, 1, 1519583748, 1),
+(14, 'Bulgarian Lev', 'BGN', 1519583748, 1, 1519583748, 1),
+(15, 'Bahraini Dinar', 'BHD', 1519583748, 1, 1519583748, 1),
+(16, 'Burundi Franc', 'BIF', 1519583748, 1, 1519583748, 1),
+(17, 'Bermudian Dollar', 'BMD', 1519583748, 1, 1519583748, 1),
+(18, 'Brunei Dollar', 'BND', 1519583748, 1, 1519583748, 1),
+(19, 'Bolivian Boliviano', 'BOB', 1519583748, 1, 1519583748, 1),
+(20, 'Brazilian Real', 'BRL', 1519583748, 1, 1519583748, 1),
+(21, 'Bahamian Dollar', 'BSD', 1519583748, 1, 1519583748, 1),
+(22, 'Bhutan Ngultrum', 'BTN', 1519583748, 1, 1519583748, 1),
+(23, 'Burma Kyat', 'BUK', 1519583748, 1, 1519583748, 1),
+(24, 'Botswanian Pula', 'BWP', 1519583748, 1, 1519583748, 1),
+(25, 'Belize Dollar', 'BZD', 1519583748, 1, 1519583748, 1),
+(26, 'Canadian Dollar', 'CAD', 1519583748, 1, 1519583748, 1),
+(27, 'Swiss Franc', 'CHF', 1519583748, 1, 1519583748, 1),
+(28, 'Chilean Unidades de Fomento', 'CLF', 1519583748, 1, 1519583748, 1),
+(29, 'Chilean Peso', 'CLP', 1519583748, 1, 1519583748, 1),
+(30, 'Yuan (Chinese) Renminbi', 'CNY', 1519583748, 1, 1519583748, 1),
+(31, 'Colombian Peso', 'COP', 1519583748, 1, 1519583748, 1),
+(32, 'Costa Rican Colon', 'CRC', 1519583748, 1, 1519583748, 1),
+(33, 'Czech Republic Koruna', 'CZK', 1519583748, 1, 1519583748, 1),
+(34, 'Cuban Peso', 'CUP', 1519583748, 1, 1519583748, 1),
+(35, 'Cape Verde Escudo', 'CVE', 1519583748, 1, 1519583748, 1),
+(36, 'Cyprus Pound', 'CYP', 1519583748, 1, 1519583748, 1),
+(40, 'Danish Krone', 'DKK', 1519583748, 1, 1519583748, 1),
+(41, 'Dominican Peso', 'DOP', 1519583748, 1, 1519583748, 1),
+(42, 'Algerian Dinar', 'DZD', 1519583748, 1, 1519583748, 1),
+(43, 'Ecuador Sucre', 'ECS', 1519583748, 1, 1519583748, 1),
+(44, 'Egyptian Pound', 'EGP', 1519583748, 1, 1519583748, 1),
+(45, 'Estonian Kroon (EEK)', 'EEK', 1519583748, 1, 1519583748, 1),
+(46, 'Ethiopian Birr', 'ETB', 1519583748, 1, 1519583748, 1),
+(47, 'Euro', 'EUR', 1519583748, 1, 1519583748, 1),
+(49, 'Fiji Dollar', 'FJD', 1519583748, 1, 1519583748, 1),
+(50, 'Falkland Islands Pound', 'FKP', 1519583748, 1, 1519583748, 1),
+(52, 'British Pound', 'GBP', 1519583748, 1, 1519583748, 1),
+(53, 'Ghanaian Cedi', 'GHC', 1519583748, 1, 1519583748, 1),
+(54, 'Gibraltar Pound', 'GIP', 1519583748, 1, 1519583748, 1),
+(55, 'Gambian Dalasi', 'GMD', 1519583748, 1, 1519583748, 1),
+(56, 'Guinea Franc', 'GNF', 1519583748, 1, 1519583748, 1),
+(58, 'Guatemalan Quetzal', 'GTQ', 1519583748, 1, 1519583748, 1),
+(59, 'Guinea-Bissau Peso', 'GWP', 1519583748, 1, 1519583748, 1),
+(60, 'Guyanan Dollar', 'GYD', 1519583748, 1, 1519583748, 1),
+(61, 'Hong Kong Dollar', 'HKD', 1519583748, 1, 1519583748, 1),
+(62, 'Honduran Lempira', 'HNL', 1519583748, 1, 1519583748, 1),
+(63, 'Haitian Gourde', 'HTG', 1519583748, 1, 1519583748, 1),
+(64, 'Hungarian Forint', 'HUF', 1519583748, 1, 1519583748, 1),
+(65, 'Indonesian Rupiah', 'IDR', 1519583748, 1, 1519583748, 1),
+(66, 'Irish Punt', 'IEP', 1519583748, 1, 1519583748, 1),
+(67, 'Israeli Shekel', 'ILS', 1519583748, 1, 1519583748, 1),
+(68, 'Indian Rupee', 'INR', 1519583748, 1, 1519583748, 1),
+(69, 'Iraqi Dinar', 'IQD', 1519583748, 1, 1519583748, 1),
+(70, 'Iranian Rial', 'IRR', 1519583748, 1, 1519583748, 1),
+(73, 'Jamaican Dollar', 'JMD', 1519583748, 1, 1519583748, 1),
+(74, 'Jordanian Dinar', 'JOD', 1519583748, 1, 1519583748, 1),
+(75, 'Japanese Yen', 'JPY', 1519583748, 1, 1519583748, 1),
+(76, 'Kenyan Schilling', 'KES', 1519583748, 1, 1519583748, 1),
+(77, 'Kampuchean (Cambodian) Riel', 'KHR', 1519583748, 1, 1519583748, 1),
+(78, 'Comoros Franc', 'KMF', 1519583748, 1, 1519583748, 1),
+(79, 'North Korean Won', 'KPW', 1519583748, 1, 1519583748, 1),
+(80, '(South) Korean Won', 'KRW', 1519583748, 1, 1519583748, 1),
+(81, 'Kuwaiti Dinar', 'KWD', 1519583748, 1, 1519583748, 1),
+(82, 'Cayman Islands Dollar', 'KYD', 1519583748, 1, 1519583748, 1),
+(83, 'Lao Kip', 'LAK', 1519583748, 1, 1519583748, 1),
+(84, 'Lebanese Pound', 'LBP', 1519583748, 1, 1519583748, 1),
+(85, 'Sri Lanka Rupee', 'LKR', 1519583748, 1, 1519583748, 1),
+(86, 'Liberian Dollar', 'LRD', 1519583748, 1, 1519583748, 1),
+(87, 'Lesotho Loti', 'LSL', 1519583748, 1, 1519583748, 1),
+(89, 'Libyan Dinar', 'LYD', 1519583748, 1, 1519583748, 1),
+(90, 'Moroccan Dirham', 'MAD', 1519583748, 1, 1519583748, 1),
+(91, 'Malagasy Franc', 'MGF', 1519583748, 1, 1519583748, 1),
+(92, 'Mongolian Tugrik', 'MNT', 1519583748, 1, 1519583748, 1),
+(93, 'Macau Pataca', 'MOP', 1519583748, 1, 1519583748, 1),
+(94, 'Mauritanian Ouguiya', 'MRO', 1519583748, 1, 1519583748, 1),
+(95, 'Maltese Lira', 'MTL', 1519583748, 1, 1519583748, 1),
+(96, 'Mauritius Rupee', 'MUR', 1519583748, 1, 1519583748, 1),
+(97, 'Maldive Rufiyaa', 'MVR', 1519583748, 1, 1519583748, 1),
+(98, 'Malawi Kwacha', 'MWK', 1519583748, 1, 1519583748, 1),
+(99, 'Mexican Peso', 'MXP', 1519583748, 1, 1519583748, 1),
+(100, 'Malaysian Ringgit', 'MYR', 1519583748, 1, 1519583748, 1),
+(101, 'Mozambique Metical', 'MZM', 1519583748, 1, 1519583748, 1),
+(102, 'Namibian Dollar', 'NAD', 1519583748, 1, 1519583748, 1),
+(103, 'Nigerian Naira', 'NGN', 1519583748, 1, 1519583748, 1),
+(104, 'Nicaraguan Cordoba', 'NIO', 1519583748, 1, 1519583748, 1),
+(105, 'Norwegian Kroner', 'NOK', 1519583748, 1, 1519583748, 1),
+(106, 'Nepalese Rupee', 'NPR', 1519583748, 1, 1519583748, 1),
+(107, 'New Zealand Dollar', 'NZD', 1519583748, 1, 1519583748, 1),
+(108, 'Omani Rial', 'OMR', 1519583748, 1, 1519583748, 1),
+(109, 'Panamanian Balboa', 'PAB', 1519583748, 1, 1519583748, 1),
+(110, 'Peruvian Nuevo Sol', 'PEN', 1519583748, 1, 1519583748, 1),
+(111, 'Papua New Guinea Kina', 'PGK', 1519583748, 1, 1519583748, 1),
+(112, 'Philippine Peso', 'PHP', 1519583748, 1, 1519583748, 1),
+(113, 'Pakistan Rupee', 'PKR', 1519583748, 1, 1519583748, 1),
+(114, 'Polish Zloty', 'PLN', 1519583748, 1, 1519583748, 1),
+(116, 'Paraguay Guarani', 'PYG', 1519583748, 1, 1519583748, 1),
+(117, 'Qatari Rial', 'QAR', 1519583748, 1, 1519583748, 1),
+(118, 'Romanian Leu', 'RON', 1519583748, 1, 1519583748, 1),
+(119, 'Rwanda Franc', 'RWF', 1519583748, 1, 1519583748, 1),
+(120, 'Saudi Arabian Riyal', 'SAR', 1519583748, 1, 1519583748, 1),
+(121, 'Solomon Islands Dollar', 'SBD', 1519583748, 1, 1519583748, 1),
+(122, 'Seychelles Rupee', 'SCR', 1519583748, 1, 1519583748, 1),
+(123, 'Sudanese Pound', 'SDP', 1519583748, 1, 1519583748, 1),
+(124, 'Swedish Krona', 'SEK', 1519583748, 1, 1519583748, 1),
+(125, 'Singapore Dollar', 'SGD', 1519583748, 1, 1519583748, 1),
+(126, 'St. Helena Pound', 'SHP', 1519583748, 1, 1519583748, 1),
+(127, 'Sierra Leone Leone', 'SLL', 1519583748, 1, 1519583748, 1),
+(128, 'Somali Schilling', 'SOS', 1519583748, 1, 1519583748, 1),
+(129, 'Suriname Guilder', 'SRG', 1519583748, 1, 1519583748, 1),
+(130, 'Sao Tome and Principe Dobra', 'STD', 1519583748, 1, 1519583748, 1),
+(131, 'Russian Ruble', 'RUB', 1519583748, 1, 1519583748, 1),
+(132, 'El Salvador Colon', 'SVC', 1519583748, 1, 1519583748, 1),
+(133, 'Syrian Potmd', 'SYP', 1519583748, 1, 1519583748, 1),
+(134, 'Swaziland Lilangeni', 'SZL', 1519583748, 1, 1519583748, 1),
+(135, 'Thai Baht', 'THB', 1519583748, 1, 1519583748, 1),
+(136, 'Tunisian Dinar', 'TND', 1519583748, 1, 1519583748, 1),
+(137, 'Tongan Paanga', 'TOP', 1519583748, 1, 1519583748, 1),
+(138, 'East Timor Escudo', 'TPE', 1519583748, 1, 1519583748, 1),
+(139, 'Turkish Lira', 'TRY', 1519583748, 1, 1519583748, 1),
+(140, 'Trinidad and Tobago Dollar', 'TTD', 1519583748, 1, 1519583748, 1),
+(141, 'Taiwan Dollar', 'TWD', 1519583748, 1, 1519583748, 1),
+(142, 'Tanzanian Schilling', 'TZS', 1519583748, 1, 1519583748, 1),
+(143, 'Uganda Shilling', 'UGX', 1519583748, 1, 1519583748, 1),
+(144, 'US Dollar', 'USD', 1519583748, 1, 1519583748, 1),
+(145, 'Uruguayan Peso', 'UYU', 1519583748, 1, 1519583748, 1),
+(146, 'Venezualan Bolivar', 'VEF', 1519583748, 1, 1519583748, 1),
+(147, 'Vietnamese Dong', 'VND', 1519583748, 1, 1519583748, 1),
+(148, 'Vanuatu Vatu', 'VUV', 1519583748, 1, 1519583748, 1),
+(149, 'Samoan Tala', 'WST', 1519583748, 1, 1519583748, 1),
+(150, 'CommunautÃƒÂ© FinanciÃƒÂ¨re Africaine BEAC, Francs', 'XAF', 1519583748, 1, 1519583748, 1),
+(151, 'Silver, Ounces', 'XAG', 1519583748, 1, 1519583748, 1),
+(152, 'Gold, Ounces', 'XAU', 1519583748, 1, 1519583748, 1),
+(153, 'East Caribbean Dollar', 'XCD', 1519583748, 1, 1519583748, 1),
+(154, 'International Monetary Fund (IMF) Special Drawing Rights', 'XDR', 1519583748, 1, 1519583748, 1),
+(155, 'CommunautÃƒÂ© FinanciÃƒÂ¨re Africaine BCEAO - Francs', 'XOF', 1519583748, 1, 1519583748, 1),
+(156, 'Palladium Ounces', 'XPD', 1519583748, 1, 1519583748, 1),
+(157, 'Comptoirs FranÃƒÂ§ais du Pacifique Francs', 'XPF', 1519583748, 1, 1519583748, 1),
+(158, 'Platinum, Ounces', 'XPT', 1519583748, 1, 1519583748, 1),
+(159, 'Democratic Yemeni Dinar', 'YDD', 1519583748, 1, 1519583748, 1),
+(160, 'Yemeni Rial', 'YER', 1519583748, 1, 1519583748, 1),
+(161, 'New Yugoslavia Dinar', 'YUD', 1519583748, 1, 1519583748, 1),
+(162, 'South African Rand', 'ZAR', 1519583748, 1, 1519583748, 1),
+(163, 'Zambian Kwacha', 'ZMK', 1519583748, 1, 1519583748, 1),
+(164, 'Zaire Zaire', 'ZRZ', 1519583748, 1, 1519583748, 1),
+(165, 'Zimbabwe Dollar', 'ZWD', 1519583748, 1, 1519583748, 1),
+(166, 'Slovak Koruna', 'SKK', 1519583748, 1, 1519583748, 1),
+(167, 'Armenian Dram', 'AMD', 1519583748, 1, 1519583748, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense`
+--
+
+CREATE TABLE `expense` (
+  `expense_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `month` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `id_type`
+--
+
+CREATE TABLE `id_type` (
+  `id_type_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `id_type`
+--
+
+INSERT INTO `id_type` (`id_type_id`, `name`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'Senior Cetizen', 1682164673, 1, 1682164673, 1),
+(2, 'PWD', 1682164677, 1, 1682164677, 1),
+(3, 'National ID', 1682164686, 1, 1682164686, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `invoice_id` int(11) NOT NULL,
+  `tenant_name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `status` int(11) DEFAULT NULL,
+  `start_date` int(11) DEFAULT NULL,
+  `end_date` int(11) DEFAULT NULL,
+  `due_date` int(11) DEFAULT NULL,
+  `invoice_type` int(11) DEFAULT NULL COMMENT '0 = date_range, 1 = single_month, 2 = multiple_months',
+  `tenant_mobile` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `room_number` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `tenant_id` int(11) DEFAULT NULL,
+  `invoice_number` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `late_fee` int(11) DEFAULT NULL,
+  `payment_method_id` int(11) DEFAULT NULL,
+  `sms` int(11) DEFAULT NULL,
+  `email` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`invoice_id`, `tenant_name`, `status`, `start_date`, `end_date`, `due_date`, `invoice_type`, `tenant_mobile`, `room_number`, `tenant_id`, `invoice_number`, `created_on`, `created_by`, `timestamp`, `updated_by`, `late_fee`, `payment_method_id`, `sms`, `email`) VALUES
+(1, 'sample', 0, 1680300000, 1680559199, 1682719199, 0, 'sample', 'M 17', 1, '2023497281', 1682165972, 1, 1682166387, 1, 0, 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_service`
+--
+
+CREATE TABLE `invoice_service` (
+  `invoice_service_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `month` varchar(11) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `invoice_service`
+--
+
+INSERT INTO `invoice_service` (`invoice_service_id`, `service_id`, `month`, `year`, `invoice_id`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 1, 'January', 2024, 1, 1682166183, 1, 1682166183, 1),
+(2, 2, 'January', 2019, 1, 1682166183, 1, 1682166183, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `module`
+--
+
+CREATE TABLE `module` (
+  `module_id` int(11) NOT NULL DEFAULT 0,
+  `module_name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `module_title` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `module`
+--
+
+INSERT INTO `module` (`module_id`, `module_name`, `created_on`, `created_by`, `timestamp`, `updated_by`, `module_title`) VALUES
+(1, 'dashboard', 1520015400, 1, 1520015400, 1, 'Dashboard'),
+(2, 'rooms', 1520015400, 1, 1520015400, 1, 'Rooms'),
+(3, 'beds', 1520015400, 1, 1520015400, 1, 'Beds'),
+(4, 'tenants', 1520015400, 1, 1520015400, 1, 'Tenants'),
+(6, 'expenses', 1520015400, 1, 1520015400, 1, 'Expenses'),
+(7, 'staff', 1520015400, 1, 1520015400, 1, 'Staff'),
+(8, 'staff_payroll', 1520015400, 1, 1520015400, 1, 'Staff Payroll'),
+(9, 'generate_invoice', 1520015400, 1, 1520015400, 1, 'Generate Invoice'),
+(10, 'invoices', 1520015400, 1, 1520015400, 1, 'Invoices'),
+(11, 'account', 1520015400, 1, 1520015400, 1, 'Account'),
+(12, 'settings', 1520015400, 1, 1520015400, 1, 'Settings'),
+(13, 'notices', 1589794632, 1, 1589794632, 1, 'Notices'),
+(14, 'complaints', 1589794632, 1, 1589794632, 1, 'Complaints'),
+(16, 'reports', 1651702500, 1, 1651702500, 1, 'Reports');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notice`
+--
+
+CREATE TABLE `notice` (
+  `notice_id` int(11) NOT NULL,
+  `title` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `notice` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_method`
+--
+
+CREATE TABLE `payment_method` (
+  `payment_method_id` int(11) NOT NULL,
+  `name` varchar(55) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `payment_method`
+--
+
+INSERT INTO `payment_method` (`payment_method_id`, `name`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'Credit Card', 1682164639, 1, 1682164639, 1),
+(2, 'Cash', 1682164648, 1, 1682164654, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profession`
+--
+
+CREATE TABLE `profession` (
+  `profession_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `profession`
+--
+
+INSERT INTO `profession` (`profession_id`, `name`, `created_on`, `timestamp`, `created_by`, `updated_by`) VALUES
+(1, 'Accountant', 1484580450, 1527841071, 1, 1),
+(2, 'Actor', 1484580461, 1519202764, 1, 1),
+(3, 'Air Steward', 1484580483, 1519202764, 1, 1),
+(4, 'Animator', 1484580488, 1519202764, 1, 1),
+(5, 'Architect', 1484580494, 1519202764, 1, 1),
+(6, 'Artist', 1484580498, 1519202764, 1, 1),
+(7, 'Author', 1484580502, 1519202764, 1, 1),
+(8, 'Baker', 1484580507, 1519202764, 1, 1),
+(9, 'Biologist', 1484580511, 1519202764, 1, 1),
+(10, 'Builder', 1484580515, 1519202764, 1, 1),
+(11, 'Butcher', 1484580519, 1519202764, 1, 1),
+(12, 'Counselor', 1484580523, 1519202764, 1, 1),
+(13, 'Chef', 1484580527, 1519202764, 1, 1),
+(14, 'Director', 1484580532, 1519202764, 1, 1),
+(15, 'Dentist', 1484580537, 1519202764, 1, 1),
+(16, 'Designer', 1484580547, 1519202764, 1, 1),
+(17, 'Doctor', 1484580551, 1519202764, 1, 1),
+(18, 'Economist', 1484580556, 1519202764, 1, 1),
+(19, 'Electrician', 1484580560, 1519202764, 1, 1),
+(20, 'Engineer', 1484580565, 1519202764, 1, 1),
+(21, 'Farmer', 1484580576, 1519202764, 1, 1),
+(22, 'Film Director', 1484580582, 1519202764, 1, 1),
+(23, 'Fisherman', 1484580586, 1519202764, 1, 1),
+(24, 'Geologist', 1484581447, 1519202764, 1, 1),
+(25, 'Head Teacher', 1484581455, 1519202764, 1, 1),
+(26, 'Journalist', 1484581461, 1519202764, 1, 1),
+(27, 'Judge', 1484581466, 1519202764, 1, 1),
+(28, 'Lawyer', 1484581470, 1519202764, 1, 1),
+(29, 'Lecturer', 1484581474, 1519202764, 1, 1),
+(30, 'Magician', 1484581479, 1519202764, 1, 1),
+(31, 'Manager', 1484581483, 1519202764, 1, 1),
+(32, 'Musician', 1484581488, 1519202764, 1, 1),
+(33, 'Nurse', 1484581492, 1519202764, 1, 1),
+(34, 'Painter', 1484581497, 1519202764, 1, 1),
+(35, 'Photographer', 1484581501, 1519202764, 1, 1),
+(36, 'Pilot', 1484581506, 1519202764, 1, 1),
+(37, 'Police Officer', 1484581514, 1519202764, 1, 1),
+(38, 'Politician', 1484581519, 1519202764, 1, 1),
+(39, 'Receptionist', 1484581523, 1519202764, 1, 1),
+(40, 'Salesperson', 1484581527, 1519202764, 1, 1),
+(41, 'Scientist', 1484581532, 1519202764, 1, 1),
+(42, 'Secretary', 1484581537, 1519202764, 1, 1),
+(43, 'Singer', 1484581541, 1519202764, 1, 1),
+(44, 'Software Engineer', 1484581549, 1519202764, 1, 1),
+(45, 'Soldier', 1484581556, 1519202764, 1, 1),
+(46, 'Surgeon', 1484581560, 1519202764, 1, 1),
+(47, 'Teacher', 1484581565, 1519202764, 1, 1),
+(48, 'Translator', 1484581570, 1519202764, 1, 1),
+(49, 'Waiter', 1484581575, 1519202764, 1, 1),
+(50, 'Web Developer', 1484581588, 1519202764, 1, 1),
+(51, 'Writer', 1484581592, 1519202764, 1, 1),
+(52, 'Other', 1484581601, 1519202764, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room`
+--
+
+CREATE TABLE `room` (
+  `room_id` int(11) NOT NULL,
+  `room_number` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `floor` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `remarks` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `daily_rent` int(11) DEFAULT NULL,
+  `monthly_rent` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`room_id`, `room_number`, `floor`, `remarks`, `timestamp`, `created_on`, `updated_by`, `created_by`, `status`, `daily_rent`, `monthly_rent`) VALUES
+(1, 'M 17', '1', 'asdsdsdsdsd', 1685370923, 1682164896, 1, 1, 0, 500, 15000),
+(2, 'asd', '74', 'Alkc Limirt 2', 1685373483, 1682248022, 1, 1, 0, 78, 79);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_invoice`
+--
+
+CREATE TABLE `room_invoice` (
+  `idx` int(11) NOT NULL,
+  `invoice_number` varchar(255) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `tenant_id` int(11) NOT NULL,
+  `lease_start` int(30) NOT NULL,
+  `lease_end` int(30) NOT NULL,
+  `created_on` int(30) NOT NULL,
+  `total_amount` varchar(225) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room_invoice`
+--
+
+INSERT INTO `room_invoice` (`idx`, `invoice_number`, `room_id`, `tenant_id`, `lease_start`, `lease_end`, `created_on`, `total_amount`, `status`) VALUES
+(1, '548310627', 1, 2, 1685397600, 1685656800, 1685385119, '1500', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service`
+--
+
+CREATE TABLE `service` (
+  `service_id` int(11) NOT NULL,
+  `name` varchar(55) DEFAULT NULL,
+  `cost` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`service_id`, `name`, `cost`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'Food', 300, 1682164699, 1, 1682164699, 1),
+(2, 'Massage', 350, 1682164721, 1, 1682164721, 1),
+(3, 'Events Venue', 1500, 1682170634, 1, 1685371589, 1),
+(4, 'sdasd', 89, 1685372254, 1, 1685372380, 1),
+(5, 'Buwad', 5, 1685374332, 1, 1685374332, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services_invoice`
+--
+
+CREATE TABLE `services_invoice` (
+  `idx` int(11) NOT NULL,
+  `invoice_number` varchar(255) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `tenant_id` int(11) NOT NULL,
+  `lease_start` int(30) NOT NULL,
+  `created_on` int(30) NOT NULL,
+  `count` varchar(225) NOT NULL,
+  `total_amount` varchar(225) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `services_invoice`
+--
+
+INSERT INTO `services_invoice` (`idx`, `invoice_number`, `service_id`, `tenant_id`, `lease_start`, `created_on`, `count`, `total_amount`, `status`) VALUES
+(2, '571206834', 1, 2, 1685311200, 1685394615, '0', '0', 1),
+(3, '804537261', 2, 2, 1685311200, 1685390226, '15', '4600', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `setting`
+--
+
+CREATE TABLE `setting` (
+  `setting_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `content` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `setting`
+--
+
+INSERT INTO `setting` (`setting_id`, `name`, `content`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'system_name', 'Vicana Nature Park', 1519579495, 1, 1519759752, 1),
+(2, 'currency', 'PHP', 1519579495, 1, 1519759752, 1),
+(3, 'timezone', 'Asia/Dhaka', 1519579495, 1, 1519759752, 1),
+(4, 'favicon', 'vc.png', 1519579495, 1, 1682157077, 1),
+(5, 'tagline', 'Vicana Management System', 1519579495, 1, 1519759752, 1),
+(6, 'address', '6326  San Vicente<br>Trinidad, bohol', 1521785545, 1, 1521785545, 1),
+(7, 'smtp_user', '', 1521785545, 1, 1521785545, 1),
+(8, 'smtp_pass', '', 1521785545, 1, 1521785545, 1),
+(9, 'automatic_late_fee_add_day', '19', 1521785545, 1, 1521785545, 1),
+(10, 'login_bg', '2022-05-10.jpg', 1521785545, 1, 1682156436, 1),
+(11, 'language', 'english', 1521785545, 1, 1601873809, 1),
+(12, 'copyright', '@ dcvicananaturepark', 1521785545, 1, 1521785545, 1),
+(13, 'copyright_url', 'https://dcvicananaturepark.com', 1521785545, 1, 1521785545, 1),
+(14, 'item_purchase_code', NULL, 1521785545, 1, 1521785545, 1),
+(15, 'font', '\'Poppins\', sans-serif', NULL, NULL, NULL, NULL),
+(16, 'font_family', 'Poppins', NULL, NULL, NULL, NULL),
+(17, 'font_src', 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', NULL, NULL, NULL, NULL),
+(18, 'account_sid', '', NULL, NULL, NULL, NULL),
+(19, 'auth_token', '', NULL, NULL, NULL, NULL),
+(20, 'number', '', NULL, NULL, NULL, NULL),
+(21, 'smtp_host', '', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `staff_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `role` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `remarks` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `mobile_number` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `name`, `role`, `timestamp`, `remarks`, `created_on`, `mobile_number`, `created_by`, `updated_by`, `status`) VALUES
+(1, 'Staff', 'Cashier', 1682170712, 'Staff \r\n', 1682170712, '0999999999', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff_salary`
+--
+
+CREATE TABLE `staff_salary` (
+  `staff_salary_id` int(11) NOT NULL,
+  `staff_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `month` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tenant`
+--
+
+CREATE TABLE `tenant` (
+  `tenant_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `email` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `mobile_number` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `id_number` varchar(33) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `image_link` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `profession_id` int(11) DEFAULT NULL,
+  `emergency_person` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `emergency_contact` varchar(22) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `home_address` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `extra_note` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `work_address` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `id_type_id` int(11) DEFAULT NULL,
+  `lease_start` int(11) DEFAULT NULL,
+  `lease_end` int(11) DEFAULT NULL,
+  `id_front_image_link` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `id_back_image_link` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `lease_link` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `tenant`
+--
+
+INSERT INTO `tenant` (`tenant_id`, `name`, `email`, `mobile_number`, `id_number`, `image_link`, `profession_id`, `emergency_person`, `emergency_contact`, `home_address`, `room_id`, `extra_note`, `timestamp`, `status`, `created_on`, `work_address`, `created_by`, `updated_by`, `id_type_id`, `lease_start`, `lease_end`, `id_front_image_link`, `id_back_image_link`, `lease_link`) VALUES
+(2, 'sdf', NULL, '1588888', 'asd', NULL, 4, 'asasd', '4556856', 'asd<br>asd', 0, 'dtghdf', 1685371488, 0, 1682248054, 'asd<br>asd', 1, 1, 1, 1682805600, 1682805600, NULL, NULL, NULL),
+(3, 'Mark Emil Dacoylo', NULL, '0999999999', '', NULL, 0, 'asasd', '4556856', 'Gg. Sutarjo No. 509 ', 0, 'asdasdas\r\nasda\r\nasd ', 1685373623, 1, 1685370900, '', 1, 1, 0, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tenant_rent`
+--
+
+CREATE TABLE `tenant_rent` (
+  `tenant_rent_id` int(11) NOT NULL,
+  `month` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `tenant_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `tenant_rent`
+--
+
+INSERT INTO `tenant_rent` (`tenant_rent_id`, `month`, `year`, `amount`, `timestamp`, `created_on`, `updated_by`, `created_by`, `invoice_id`, `tenant_id`, `status`) VALUES
+(1, 'April', 2023, 1500, 1682166387, 1682165972, 1, 1, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `email` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `password` varchar(99) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `user_type` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `person_id` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `permissions` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `email`, `password`, `user_type`, `timestamp`, `person_id`, `updated_by`, `created_by`, `created_on`, `status`, `permissions`) VALUES
+(1, 'admin@admin.com', '$2y$10$jZJapdrH2dcHc44958UL9uU1ixGvZYJPQZsW2kFWAesufl4QVuU36', 1, 1675571365, 0, 1, 1, 1675571365, 1, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16'),
+(2, 'cashier@cashier.com', '$2y$10$uXmV2fjV82a9yBsWTKuryOr79JYIttCHfUE/5Xz8kJcY.50PVE8cO', 2, 1682170712, 1, 1, 1, 1682170712, 1, '1,2,3,4,8,9,10,13,16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `utility_bill`
+--
+
+CREATE TABLE `utility_bill` (
+  `utility_bill_id` int(11) NOT NULL,
+  `utility_bill_category_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `month` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `image_link` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `utility_bill_category`
+--
+
+CREATE TABLE `utility_bill_category` (
+  `utility_bill_category_id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `created_on` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `utility_bill_category`
+--
+
+INSERT INTO `utility_bill_category` (`utility_bill_category_id`, `name`, `created_on`, `created_by`, `timestamp`, `updated_by`) VALUES
+(1, 'Car Parking', 1682165346, 1, 1682165346, 1),
+(2, 'Wifi', 1682165350, 1, 1682165350, 1),
+(3, 'Gym', 1682165367, 1, 1682165367, 1),
+(4, 'Swiming pool', 1682165373, 1, 1682165373, 1),
+(5, 'Events', 1682165385, 1, 1682165385, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `board_member`
+--
+ALTER TABLE `board_member`
+  ADD PRIMARY KEY (`board_member_id`);
+
+--
+-- Indexes for table `complaint`
+--
+ALTER TABLE `complaint`
+  ADD PRIMARY KEY (`complaint_id`);
+
+--
+-- Indexes for table `complaint_details`
+--
+ALTER TABLE `complaint_details`
+  ADD PRIMARY KEY (`complaint_details_id`);
+
+--
+-- Indexes for table `currency`
+--
+ALTER TABLE `currency`
+  ADD PRIMARY KEY (`currency_id`);
+
+--
+-- Indexes for table `expense`
+--
+ALTER TABLE `expense`
+  ADD PRIMARY KEY (`expense_id`);
+
+--
+-- Indexes for table `id_type`
+--
+ALTER TABLE `id_type`
+  ADD PRIMARY KEY (`id_type_id`);
+
+--
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`invoice_id`);
+
+--
+-- Indexes for table `invoice_service`
+--
+ALTER TABLE `invoice_service`
+  ADD PRIMARY KEY (`invoice_service_id`);
+
+--
+-- Indexes for table `module`
+--
+ALTER TABLE `module`
+  ADD PRIMARY KEY (`module_id`);
+
+--
+-- Indexes for table `notice`
+--
+ALTER TABLE `notice`
+  ADD PRIMARY KEY (`notice_id`);
+
+--
+-- Indexes for table `payment_method`
+--
+ALTER TABLE `payment_method`
+  ADD PRIMARY KEY (`payment_method_id`);
+
+--
+-- Indexes for table `profession`
+--
+ALTER TABLE `profession`
+  ADD PRIMARY KEY (`profession_id`);
+
+--
+-- Indexes for table `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`room_id`);
+
+--
+-- Indexes for table `room_invoice`
+--
+ALTER TABLE `room_invoice`
+  ADD PRIMARY KEY (`idx`);
+
+--
+-- Indexes for table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`service_id`);
+
+--
+-- Indexes for table `services_invoice`
+--
+ALTER TABLE `services_invoice`
+  ADD PRIMARY KEY (`idx`);
+
+--
+-- Indexes for table `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`setting_id`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`staff_id`);
+
+--
+-- Indexes for table `staff_salary`
+--
+ALTER TABLE `staff_salary`
+  ADD PRIMARY KEY (`staff_salary_id`);
+
+--
+-- Indexes for table `tenant`
+--
+ALTER TABLE `tenant`
+  ADD PRIMARY KEY (`tenant_id`);
+
+--
+-- Indexes for table `tenant_rent`
+--
+ALTER TABLE `tenant_rent`
+  ADD PRIMARY KEY (`tenant_rent_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `utility_bill`
+--
+ALTER TABLE `utility_bill`
+  ADD PRIMARY KEY (`utility_bill_id`);
+
+--
+-- Indexes for table `utility_bill_category`
+--
+ALTER TABLE `utility_bill_category`
+  ADD PRIMARY KEY (`utility_bill_category_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `board_member`
+--
+ALTER TABLE `board_member`
+  MODIFY `board_member_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `complaint`
+--
+ALTER TABLE `complaint`
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `complaint_details`
+--
+ALTER TABLE `complaint_details`
+  MODIFY `complaint_details_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `currency`
+--
+ALTER TABLE `currency`
+  MODIFY `currency_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+
+--
+-- AUTO_INCREMENT for table `expense`
+--
+ALTER TABLE `expense`
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `id_type`
+--
+ALTER TABLE `id_type`
+  MODIFY `id_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `invoice_service`
+--
+ALTER TABLE `invoice_service`
+  MODIFY `invoice_service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `notice`
+--
+ALTER TABLE `notice`
+  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment_method`
+--
+ALTER TABLE `payment_method`
+  MODIFY `payment_method_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `profession`
+--
+ALTER TABLE `profession`
+  MODIFY `profession_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `room`
+--
+ALTER TABLE `room`
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `room_invoice`
+--
+ALTER TABLE `room_invoice`
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `service`
+--
+ALTER TABLE `service`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `services_invoice`
+--
+ALTER TABLE `services_invoice`
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `staff_salary`
+--
+ALTER TABLE `staff_salary`
+  MODIFY `staff_salary_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tenant`
+--
+ALTER TABLE `tenant`
+  MODIFY `tenant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tenant_rent`
+--
+ALTER TABLE `tenant_rent`
+  MODIFY `tenant_rent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `utility_bill`
+--
+ALTER TABLE `utility_bill`
+  MODIFY `utility_bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `utility_bill_category`
+--
+ALTER TABLE `utility_bill_category`
+  MODIFY `utility_bill_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
