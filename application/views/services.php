@@ -25,6 +25,7 @@
                             <tr>
                                 <th width="1%">#</th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('name'); ?></th>
+                                <th class="text-nowrap">Description</th>
                                 <th class="text-nowrap">
                                     <?php echo $this->lang->line('cost'); ?>
                                     (<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>)
@@ -46,6 +47,7 @@
                                 <tr>
                                     <td><?php echo $count++; ?></td>
                                     <td><?php echo html_escape($row['name']); ?></td>
+                                    <td><?php echo html_escape($row['description']); ?></td>
                                     <td><?php echo html_escape(number_format($row['cost'])); ?></td>
                                     <td><?php echo date('d M, Y', $row['created_on']); ?></td>
                                     <td>
@@ -108,6 +110,10 @@
                     <div class="form-group">
                         <label><?php echo $this->lang->line('service_name'); ?> *</label>
                         <input type="text" name="name" placeholder="<?php echo $this->lang->line('service_name_placeholder'); ?>" class="form-control" data-parsley-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <input type="text" name="description" placeholder="Description" class="form-control" data-parsley-required="true">
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('cost'); ?> *</label>

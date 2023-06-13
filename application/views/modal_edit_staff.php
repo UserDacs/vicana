@@ -42,7 +42,7 @@ foreach ($staff_details as $row) :
 			<?php
 				$permissions = $this->db->get_where('user', array('person_id' => $row['staff_id'], 'user_type' => 2))->row()->permissions;
 				if (isset($permissions)) $permissions_no_comma = explode(",", $permissions);
-				$modules = $this->db->get('module')->result_array();
+				$modules = $this->db->get_where('module', array('status' => '1'))->result_array();
 				foreach ($modules as $module) :
 			?>
 			<div class="col-md-4">

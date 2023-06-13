@@ -122,17 +122,34 @@
                     </a>
                 </li>
             <?php endif; ?>
-
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'services'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
             <li class="<?php if ($page_name == 'services') echo 'active'; ?>">
                 <a href="<?php echo base_url(); ?>service_settings">
                     <i class="fa fa-list-ol"></i>
                     <span><?php echo $this->lang->line('services'); ?></span>
                 </a>
             </li>
+            <?php endif; ?>
+            <?php
+            if (!in_array($this->db->get_where('module', array(
+                'module_name' => 'staff'
+            ))->row()->module_id, $this->session->userdata('permissions')) && !in_array($this->db->get_where('module', array(
+                'module_name' => 'staff_payroll'
+            ))->row()->module_id, $this->session->userdata('permissions'))) :
+            ?>
 
+            <?php else : ?>
+                <li class="has-sub <?php if ($page_name == 'add_staff' || $page_name == 'staff' || $page_name == 'add_staff_payroll' || $page_name == 'staff_payroll' || $page_name == 'single_month_staff_payroll') echo 'active'; ?>">
+                    <a href="<?php echo base_url(); ?>staff">
+                        <i class="fa fa-user"></i>
+                        <span><?php echo $this->lang->line('staff'); ?></span>
+                    </a>
 
+                </li>
+            <?php endif; ?>
            
             <!--  -->
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'settings'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
             <li class="has-sub <?php if ($page_name == 'board_member_settings' || $page_name == 'payment_method_settings' || $page_name == 'service_settings' || $page_name == 'website_settings' || $page_name == 'profession_settings' || $page_name == 'id_type_settings' || $page_name == 'profile_settings') echo 'active'; ?>">
                 <a href="javascript:;">
                     <b class="caret"></b>
@@ -153,7 +170,7 @@
                     </li>
                 </ul>
             </li>
-          
+            <?php endif; ?>
         </ul>
         <!-- end sidebar nav -->
     </div>

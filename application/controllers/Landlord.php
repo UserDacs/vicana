@@ -21,7 +21,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'settings'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'invoices'))->row()->module_id, $this->session->userdata('permissions'))) {
 			if ($param1 == 'add') $this->model->add_room_invoice();
 			elseif ($param1 == 'cancel') $this->model->cancel_invoice($param2,$param3);
 			elseif ($param1 == 'remove') $this->model->remove_service($param2);
@@ -42,7 +42,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'settings'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'invoices'))->row()->module_id, $this->session->userdata('permissions'))) {
 			if ($param1 == 'add') $this->model->manage_service_invoice();
 			elseif ($param1 == 'cancel') $this->model->cancel_invoice($param2);
 			elseif ($param1 == 'remove') $this->model->remove_service($param2);

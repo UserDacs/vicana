@@ -49,7 +49,7 @@
                         <label><?php echo $this->lang->line('permission'); ?> *</label>
                         <div class="row">
                             <?php 
-                                $modules = $this->db->get('module')->result_array();
+                                $modules = $this->db->get_where('module', array('status' => '1'))->result_array();
                                 foreach ($modules as $module) :
                             ?>
                             <div class="col-md-4">

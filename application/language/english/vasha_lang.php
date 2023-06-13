@@ -31,7 +31,7 @@ $lang['monthly_invoices']    =   "Monthly Invoices";
 $lang['generate_invoice']    =   "Generate Invoice";
 $lang['invoices']    =    "Invoices";
 $lang['complaints']    =    "Complaints";
-$lang['staff']    =   "Staff";
+$lang['staff']    =   "User";
 $lang['add_staff_payroll']    =   "Add Staff Payroll";
 $lang['staff_payroll']    =   "Staff Payroll";
 $lang['notices']    =   "Notices";
@@ -176,17 +176,17 @@ $lang['add_notice_header']    =   "Add new notice here";
 $lang['add_notice_title_placeholder']    =   "Type title of the notice";
 $lang['notice']    =   "Notice";
 
-$lang['add_staff']    =   "Add Staff";
+$lang['add_staff']    =   "Add User";
 $lang['role']    =   "Role";
 $lang['mobile_number']    =   "Mobile Number";
 $lang['remarks']    =   "Remarks";
 $lang['permissions']    =   "Permissions";
 
-$lang['add_staff_header']    =   "Add new staff here";
+$lang['add_staff_header']    =   "Add new User here";
 $lang['enter_name']    =    "Enter name";
 $lang['add_staff_role_placeholder']    =   "Enter role i.e Manager";
 $lang['enter_email']    =   "Enter email";
-$lang['for_staff_login']    =   "For staff login";
+$lang['for_staff_login']    =   "For User login";
 $lang['default_password']    =    "Default password for login is: 123456";   
 $lang['enter_mobile_number']    =    "Enter mobile number"; 
 $lang['enter_remarks']    =    "Enter remarks";
@@ -196,14 +196,14 @@ $lang['inactive']    =    "Inactive";
 $lang['module']    =    "Module";
 $lang['permission']    =    "Permission";
 
-$lang['add_staff_payroll_header']    =   "Add staff salary here";
-$lang['select_staff']    =   "Select staff";
+$lang['add_staff_payroll_header']    =   "Add user salary here";
+$lang['select_staff']    =   "Select user";
 
-$lang['staff_payroll_header']    =   "Showing staff payroll of";
+$lang['staff_payroll_header']    =   "Showing user payroll of";
 $lang['due_salary_of']    =   "Due Salary of";
 $lang['total_salary_of']    =   "Total Salary of";
 
-$lang['single_month_staff_payroll']    =   "Single Month Staff Payroll";
+$lang['single_month_staff_payroll']    =   "Single Month user Payroll";
 
 $lang['add_complaint']    =   "Add Complaint";
 $lang['complaint_number']    =   "Complaint Number";
@@ -232,7 +232,7 @@ $lang['welcome_to']    =   "Welcome to";
 $lang['total_rooms']    =   "Total Rooms";
 $lang['unoccupied_rooms']    =   "Unoccupied Rooms";
 $lang['occupied_rooms']    =   "Occupied Rooms";
-$lang['total_staff']    =   "Total Staff";
+$lang['total_staff']    =   "Total User";
 $lang['total_tenants']    =   "Total Guest";
 $lang['inactive_tenants']    =   "Inactive Guest";
 $lang['active_tenants']    =   "Active Guest";
@@ -281,7 +281,7 @@ $lang['change_tenant_image']    =   "Change Guest Image";
 $lang['show_id_image']    =   "Show ID Image";
 $lang['change_id_image']    =   "Change ID Image";
 $lang['content']    =   "Content";
-$lang['lease_period']    =   "Lease Period";
+$lang['lease_period']    =   "Date";
 $lang['home_address']    =   "Home Address";
 $lang['work_address']    =   "Work Address";
 $lang['extra_note']    =   "Extra Note";
@@ -393,12 +393,12 @@ $lang['expense_added_successfully']    =   "New expense has been added successfu
 $lang['expense_updated_successfully']    =   "Expense has been updated successfully.";
 $lang['expense_deleted_successfully']    =   "Expense has been deleted successfully.";
 
-$lang['staff_added_successfully']    =   "New staff has been added successfully.";
-$lang['staff_updated_successfully']    =   "Staff has been updated successfully.";
-$lang['staff_deactivated_successfully']    =   "Staff has been deactivated successfully.";
-$lang['staff_deleted_successfully']    =   "Staff has been deleted successfully.";
-$lang['staff_permission_updated_successfully']    =   "Staff permission has been updated successfully.";
-$lang['staff_salary_added_successfully']    =   "New staff salary has been added successfully.";
+$lang['staff_added_successfully']    =   "New user has been added successfully.";
+$lang['staff_updated_successfully']    =   "User has been updated successfully.";
+$lang['staff_deactivated_successfully']    =   "User has been deactivated successfully.";
+$lang['staff_deleted_successfully']    =   "User has been deleted successfully.";
+$lang['staff_permission_updated_successfully']    =   "User permission has been updated successfully.";
+$lang['staff_salary_added_successfully']    =   "New user salary has been added successfully.";
 $lang['staff_salary_updated_successfully']    =   "Staff salary has been updated successfully.";
 $lang['staff_salary_deleted_successfully']    =   "Staff salary has been deleted successfully.";
 

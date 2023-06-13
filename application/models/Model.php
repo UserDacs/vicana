@@ -56,7 +56,7 @@ class Model extends CI_Model
 	function add_room_invoice()
 	{
 		if ($this->input->post('idx') == 0) {
-			if ($this->db->get_where('room_invoice', array('status' => 1, 'tenant_id' => $this->input->post('tenant_id'), 'room_id' => $this->input->post('room_id')))->num_rows() > 0) {
+			if ($this->db->get_where('room_invoice', array('status' => 1, 'room_id' => $this->input->post('room_id')))->num_rows() > 0) {
 			
 				$this->session->set_flashdata('warning', 'Already Taken!');
 	
@@ -337,50 +337,45 @@ class Model extends CI_Model
 
 	function add_tenant()
 	{
-		
-		
-		$data['name']				=	$this->input->post('name');
-		$data['mobile_number']		=	$this->input->post('mobile_number');
-		$data['email']				=	$this->input->post('email');
-		$data['id_type_id']			=	$this->input->post('id_type_id');
-		$data['id_number']			=	$this->input->post('id_number');
-		$data['home_address']		=	$this->input->post('home_address_line_1') . '<br>' . $this->input->post('home_address_line_2');
-		$data['emergency_person']	=	$this->input->post('emergency_person');
-		$data['emergency_contact']	=	$this->input->post('emergency_contact');
-		$data['room_id']			=	$this->input->post('room_id') ? $this->input->post('room_id') : 0;
+		if ($this->db->get_where('tenant', array('name' => $this->input->post('name')))->num_rows() > 0) {
+			
+			$this->session->set_flashdata('warning', 'Guest Name already exist!');
 
-		if ($this->input->post('lease_start') && $this->input->post('lease_end')) {
-			$data['lease_start']		=	strtotime($this->input->post('lease_start'));
-			$data['lease_end']			=	strtotime($this->input->post('lease_end'));
+			redirect(base_url() . 'add_tenant', 'refresh');
+
+		}else{
+			$data['name']				=	$this->input->post('name');
+			$data['mobile_number']		=	$this->input->post('mobile_number');
+			$data['email']				=	$this->input->post('email');
+			$data['id_type_id']			=	$this->input->post('id_type_id');
+			$data['id_number']			=	$this->input->post('id_number');
+			$data['home_address']		=	$this->input->post('home_address_line_1') . '<br>' . $this->input->post('home_address_line_2');
+			$data['emergency_person']	=	$this->input->post('emergency_person');
+			$data['emergency_contact']	=	$this->input->post('emergency_contact');
+			$data['room_id']			=	$this->input->post('room_id') ? $this->input->post('room_id') : 0;
+	
+			if ($this->input->post('lease_start') && $this->input->post('lease_end')) {
+				$data['lease_start']		=	strtotime($this->input->post('lease_start'));
+				$data['lease_end']			=	strtotime($this->input->post('lease_end'));
+			}
+	
+			$data['profession_id']		=	$this->input->post('profession_id');
+			$data['work_address']		=	$this->input->post('work_address_line_1');
+			$data['status']				=	$this->input->post('status');
+			$data['extra_note']			=	$this->input->post('extra_note');
+			$data['created_on']			=	time();
+			$data['created_by']			=	$this->session->userdata('user_id');
+			$data['timestamp']			=	time();
+			$data['updated_by']			=	$this->session->userdata('user_id');
+	
+			$this->db->insert('tenant', $data);
+	
+	
+			$this->session->set_flashdata('success', $this->lang->line('tenant_added_successfully'));
+	
+			redirect(base_url() . 'tenants', 'refresh');
+	
 		}
-
-		$data['profession_id']		=	$this->input->post('profession_id');
-		$data['work_address']		=	$this->input->post('work_address_line_1');
-		$data['status']				=	$this->input->post('status');
-		$data['extra_note']			=	$this->input->post('extra_note');
-		$data['created_on']			=	time();
-		$data['created_by']			=	$this->session->userdata('user_id');
-		$data['timestamp']			=	time();
-		$data['updated_by']			=	$this->session->userdata('user_id');
-
-		$this->db->insert('tenant', $data);
-
-		
-		// if ($this->input->post('room_id')) {
-		// 	$data3['status']		=	1;
-		// 	$data3['timestamp']		=	time();
-		// 	$data3['updated_by']	=	$this->session->userdata('user_id');
-
-		// 	$this->db->where('room_id', $data['room_id']);
-		// 	$this->db->update('room', $data3);
-		// }
-
-		$this->session->set_flashdata('success', $this->lang->line('tenant_added_successfully'));
-
-		redirect(base_url() . 'tenants', 'refresh');
-
-		
-
 		
 	}
 
@@ -1833,6 +1828,7 @@ class Model extends CI_Model
 	function add_service()
 	{
 		$data['name']					=	$this->input->post('name');
+		$data['description']					=	$this->input->post('description');
 		$data['cost']					=	$this->input->post('cost');
 		$data['created_on']				= 	time();
 		$data['created_by']				= 	$this->session->userdata('user_id');
@@ -1850,6 +1846,7 @@ class Model extends CI_Model
 	function update_service($service_id = '')
 	{
 		$data['name']					=	$this->input->post('name');
+		$data['description']					=	$this->input->post('description');
 		$data['cost']					=	$this->input->post('cost');
 		$data['timestamp']				= 	time();
 		$data['updated_by']				= 	$this->session->userdata('user_id');

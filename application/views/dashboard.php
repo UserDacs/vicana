@@ -12,10 +12,6 @@
     <!-- begin row -->
     <div class="row">
         <!-- begin col-3 -->
-        
-        
-        
-        
 
         <!-- begin col-3 -->
         <div class="col-lg-3 col-md-6">

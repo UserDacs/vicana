@@ -50,31 +50,31 @@
                               foreach ($datas as $row):?>
                               <?php 
 
-                                if(date('M d, Y',$row['date_start']) == date('M d, Y')){
+                                // if(date('M d, Y',$row['date_start']) == date('M d, Y')){
 
-                                    $data['status']	= 1;
+                                //     $data['status']	= 1;
 
-                                    $datar['status'] =	1;
+                                //     $datar['status'] =	1;
     
-                                    $this->db->where('room_id', $row['room_id']);
-                                    $this->db->update('room', $datar);
-                                    $this->db->where('idx', $row['idx']);
-                                    $this->db->update('room_invoice', $data);
+                                //     $this->db->where('room_id', $row['room_id']);
+                                //     $this->db->update('room', $datar);
+                                //     $this->db->where('idx', $row['idx']);
+                                //     $this->db->update('room_invoice', $data);
 
-                                }
+                                // }
 
-                                if(date('M d, Y',$row['date_created']) == date('M d, Y')){
+                                // if(date('M d, Y',$row['date_created']) == date('M d, Y')){
 
-                                    $data['status']	= 0;
+                                //     $data['status']	= 0;
 
-                                    $datar['status'] =	0;
+                                //     $datar['status'] =	0;
     
-                                    $this->db->where('room_id', $row['room_id']);
-                                    $this->db->update('room', $datar);
-                                    $this->db->where('idx', $row['idx']);
-                                    $this->db->update('room_invoice', $data);
+                                //     $this->db->where('room_id', $row['room_id']);
+                                //     $this->db->update('room', $datar);
+                                //     $this->db->where('idx', $row['idx']);
+                                //     $this->db->update('room_invoice', $data);
 
-                                }
+                                // }
                                
                              ?>
                               <tr>
@@ -141,7 +141,12 @@
                                 <option value=""><?php echo $this->lang->line('select_room'); ?></option>
                         <?php
                               $room_invoices = $this->db->get_where('room', array())->result_array();
+
                               foreach ($room_invoices as $room_invoice):?>
+<!-- 
+                              <?php if ($room_invoice['status'] != 1) { ?>
+                                # code...
+                             <?php } ?> -->
                               
                                 <option value="<?=$room_invoice['room_id'] ?>"><?=$room_invoice['room_number'] ?></option>
 
